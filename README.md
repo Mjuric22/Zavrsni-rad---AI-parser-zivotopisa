@@ -1,4 +1,4 @@
-# CV Parser - Pametni CV Parser i Generator Profila Kandidata
+# Završni rad - AI CV Parser - Pametni CV Parser i Generator Profila Kandidata
 
 **Napravio: Matej Jurić**  
 **Godina: 2025**
@@ -39,11 +39,6 @@ docstrange-main/
 
 4. **Otvori** http://localhost:5000 u pregledniku
 
-## 🔑 Sigurnost
-
-- **Nema hardcodiranih API ključeva** u kodu
-- **Sigurno za GitHub** - API ključ se unosi pri pokretanju
-- **Neće se spremiti** u datoteku
 
 ## 📖 Detaljna dokumentacija
 
