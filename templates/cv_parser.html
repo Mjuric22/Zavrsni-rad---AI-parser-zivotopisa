@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Parser - Pametni CV Parser i Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cv_styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <i class="fas fa-file-user"></i>
+                CV Parser
+            </h1>
+            <p class="subtitle">Pametni CV parser i generator profila kandidata</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <div class="upload-card">
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h3>Povucite CV datoteku ovdje</h3>
+                        <p>ili <span class="browse-link">kliknite za odabir</span></p>
+                        <input type="file" id="fileInput" accept=".pdf,.docx,.doc,.png,.jpg,.jpeg,.tiff,.bmp" hidden>
+                    </div>
+                    
+                    <div class="file-info" id="fileInfo" style="display: none;">
+                        <div class="file-details">
+                            <i class="fas fa-file"></i>
+                            <span class="file-name" id="fileName"></span>
+                            <span class="file-size" id="fileSize"></span>
+                        </div>
+                        <button class="btn-remove" id="removeFile" onclick="removeFile()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Section -->
+            <div class="action-section">
+                <div class="position-selector">
+                    <label for="positionType">Tip pozicije za procjenu:</label>
+                    <select id="positionType" class="position-select">
+                        <option value="general">Općenito</option>
+                        <option value="tech">IT/Tech pozicije</option>
+                        <option value="management">Menadžment</option>
+                        <option value="sales">Prodaja</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="finance">Financije</option>
+                        <option value="hr">Ljudski resursi</option>
+                        <option value="design">Dizajn</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="processBtn" disabled onclick="processCV()">
+                    <i class="fas fa-magic"></i>
+                    <span class="btn-text">Obradi CV</span>
+                    <div class="spinner" style="display: none;"></div>
+                </button>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h3>Rezultati obrade CV-a</h3>
+                    <div class="result-actions">
+                        <button class="btn btn-secondary" onclick="downloadMarkdown()">
+                            <i class="fas fa-download"></i>
+                            Preuzmi Markdown
+                        </button>
+                        <button class="btn btn-secondary" onclick="downloadHTML()">
+                            <i class="fas fa-download"></i>
+                            Preuzmi HTML
+                        </button>
+                        <button class="btn btn-secondary" onclick="copyToClipboard()">
+                            <i class="fas fa-copy"></i>
+                            Kopiraj
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="results-content">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="processed">Obrađeni profil</button>
+                        <button class="tab-btn" data-tab="raw">Izvorni podaci</button>
+                        <button class="tab-btn" data-tab="original">Originalni tekst</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="processed">
+                            <div class="markdown-preview" id="processedContent"></div>
+                        </div>
+                        <div class="tab-pane" id="raw">
+                            <pre class="json-content" id="rawContent"></pre>
+                        </div>
+                        <div class="tab-pane" id="original">
+                            <div class="text-content" id="originalContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Section -->
+            <div class="loading-section" id="loadingSection" style="display: none;">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <p>Obrađujem CV...</p>
+            </div>
+
+            <!-- Error Section -->
+            <div class="error-section" id="errorSection" style="display: none;">
+                <div class="error-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Greška</h3>
+                    <p id="errorMessage"></p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 CV Parser. Pametni CV parser i generator profila kandidata. Napravio: Matej Jurić</p>
+                <div class="footer-links">
+                    <a href="/api/health" target="_blank">Status API-ja</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='cv_script.js') }}"></script>
+</body>
+</html>
